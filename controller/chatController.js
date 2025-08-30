@@ -5,7 +5,7 @@ dotenv.config({ path: path.resolve("utils/.env") });
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-console.log("The api is ",process.env.GEMINI_API_KEY);
+// console.log("The api is ",process.env.GEMINI_API_KEY);
 export const chatbotReply = async (req, res) => {
   try {
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -16,7 +16,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     res.json({ success: true, reply });
   } catch (err) {
-    console.error("Gemini API Error:", err);
+    // console.error("Gemini API Error:", err);
     res.status(500).json({ success: false, error: "Chatbot error" });
   }
 };

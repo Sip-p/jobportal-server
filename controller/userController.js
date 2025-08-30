@@ -77,7 +77,7 @@ export const applyForJob=async(req,res)=>{
     }
     await JobApplication.create({
         companyId:jobData.companyId,
-        clerkId,jobId,date:Date.now(),applicants:jobData.applicants+1
+        clerkId,jobId,date:Date.now()
     })
     res.json({success:true,message:'Applied Successfully'})
  } catch (error) {

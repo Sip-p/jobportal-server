@@ -4,7 +4,7 @@ const JobApplicationSchema=new mongoose.Schema({
     companyId:{type:mongoose.Schema.Types.ObjectId,ref:'Company',required:true},
     jobId:{type:mongoose.Schema.Types.ObjectId,ref:'Job',required:true},
     status:{type:String,default:'pending'},
-    noofApplicants:{type:Number,default:0},
+   
     date:{type:Number,required:true}
 
 })  
