@@ -33,8 +33,7 @@ app.use(express.urlencoded())
  // Now you can call Clerk API, and it will use your secret key automatically
 
 
- console.log("Gemini API Key:", process.env.GEMINI_API_KEY ? "✅ Loaded" : "❌ Missing");
-console.log(process.env.GEMINI_API_KEY);
+ 
  //Routes
 app.get('/',(req,res)=>{
    res.send('Working')

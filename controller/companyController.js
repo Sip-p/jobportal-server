@@ -143,28 +143,36 @@ console.log("applications are",applications)
 };
 
 //GET COMPANY POSTED JOBS
-export const getCompanyPostedJobs=async(req,res)=>{
-try {
-    const companyId=req.company._id
-    const jobs=await Job.find({companyId})
-   
-    // ADDING NO. OF APPLICANTS INFO IN DATA
-  //  const jobData=await Promise.all(jobs.map(async(job)=>{
-  //   const applicants=await JobApplication.find({jobId:job._id})
-  //   return {...job.toObject(),applicants:applicants.length}
-  //  }))
-    res.json({success:true,jobsData:jobs})
-} catch (error) {
-    res.json({success:false,message:error.message})
-}
-}
+export const getCompanyPostedJobs = async (req, res) => {
+  try {
+    const companyId = req.company._id;
+
+    const jobs = await Job.find({ companyId });
+
+    // Add applicants count for each job
+    const jobData = await Promise.all(
+      jobs.map(async (job) => {
+        const applicants = await JobApplication.find({ jobId: job._id });
+        return {
+          ...job.toObject(),
+          applicants: applicants.length, // ✅ Correct count
+        };
+      })
+    );
+
+    res.json({ success: true, jobsData: jobData });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
 
 // CHANGE JOB APPLICATIONS STATUS-Accept and Reject
 export const ChangeJobApplicationStatus=async(req,res)=>{
     
     try {
       const {id,status}=req.body
-      console.log("The id and status received are",id,status)
+      // console.log("The id and status received are",id,status)
 
    //find job application data and update status
 const update=await JobApplication.findByIdAndUpdate(id, { status }, { new: true });
@@ -195,3 +203,15 @@ export const changeVisibility=async(req,res)=>{
   }
 }
 
+// export const noOfApplicants=async(req,res)=>{
+//   console.log("reached no of applicants")
+//   try {
+//     const {id}=req.body
+// console.log("the job id received is",req.body)
+//     const applicants=await JobApplication.find({jobId:id})
+//     console.log("the applicants are",applicants)
+//     res.json({success:true,noOfApplicants:applicants.length})
+//   } catch (error) {
+//     res.json({success:false,message:error.message})
+//   }
+// }
